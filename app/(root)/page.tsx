@@ -1,10 +1,15 @@
 import HeaderBox from "@/components/HeaderBox";
 import RightSidebar from "@/components/RightSidebar";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
+import { LogIn } from "lucide-react";
 import React from "react";
 
 export default function Home() {
-  const loggedIn = { firstName: "Andrew" };
+  const loggedIn = {
+    firstName: "Andrew",
+    lastName: "Biney",
+    email: "abiney1321@gmail.com",
+  };
 
   return (
     <section className="home">
@@ -12,7 +17,7 @@ export default function Home() {
         <header className="home-header">
           <HeaderBox
             type="greeting"
-            title="Welcome"
+            title="Welcome,"
             user={loggedIn?.firstName || "Guest"}
             subtext="Access and manage your account and transactions efficiently"
           />
@@ -26,7 +31,7 @@ export default function Home() {
         RECENT TRANSACTIONS
       </div>
 
-      <RightSidebar />
+      <RightSidebar user={loggedIn} transactions={[]} banks={[{}, {}]} />
     </section>
   );
 }
