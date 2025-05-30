@@ -1,4 +1,5 @@
 import HeaderBox from "@/components/HeaderBox";
+import RightSidebar from "@/components/RightSidebar";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
 import React from "react";
 
@@ -22,7 +23,10 @@ export default function Home() {
             totalCurrentBalance={1250.55}
           />
         </header>
+        RECENT TRANSACTIONS
       </div>
+
+      <RightSidebar />
     </section>
   );
 }
