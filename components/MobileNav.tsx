@@ -9,7 +9,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { sidebarLinks } from "@/constants";
+import { appName, sidebarLinks } from "@/constants";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -40,10 +40,10 @@ export default function MobileNav({ user }: MobileNavProps) {
               src="/icons/logo.svg"
               width={34}
               height={34}
-              alt="Vault logo"
+              alt={`${appName} logo`}
             />
             <h1 className="text-26 font-ibm-plex-serif font-bold text-black-1">
-              Vault
+              {appName}
             </h1>
           </Link>
           <div className="mobilenav-sheet">

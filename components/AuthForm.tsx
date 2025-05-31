@@ -1,5 +1,6 @@
 "use client";
 
+import { appName } from "@/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -15,10 +16,10 @@ export default function AuthForm({ type }: { type: string }) {
             src="/icons/logo.svg"
             width={34}
             height={34}
-            alt="Vault logo"
+            alt={`${appName} logo`}
           />
           <h1 className="text-26 font-ibm-plex-serif font-bold text-black-1">
-            Vault
+            {appName}
           </h1>
         </Link>
 

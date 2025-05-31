@@ -1,3 +1,5 @@
+export const appName = "Vault";
+
 export const sidebarLinks = [
   {
     imgURL: "/icons/home.svg",

@@ -1,6 +1,6 @@
 "use client";
 
-import { sidebarLinks } from "@/constants";
+import { appName, sidebarLinks } from "@/constants";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,10 +18,10 @@ export default function Sidebar({ user }: SiderbarProps) {
             src="/icons/logo.svg"
             width={34}
             height={34}
-            alt="Vault"
+            alt={`${appName}`}
             className="size-[24px] max-xl:size-14"
           />
-          <h1 className="sidebar-logo">Vault</h1>
+          <h1 className="sidebar-logo">{appName}</h1>
         </Link>
         {sidebarLinks.map((item) => {
           const isActive =
