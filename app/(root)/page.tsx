@@ -31,7 +31,11 @@ export default function Home() {
         RECENT TRANSACTIONS
       </div>
 
-      <RightSidebar user={loggedIn} transactions={[]} banks={[{}, {}]} />
+      <RightSidebar
+        user={loggedIn}
+        transactions={[]}
+        banks={[{ currentBalance: 5000.43 }, { currentBalance: 84724.23 }]}
+      />
     </section>
   );
 }
