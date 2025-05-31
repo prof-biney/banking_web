@@ -25,7 +25,7 @@ export default function Home() {
           <TotalBalanceBox
             accounts={[]}
             totalBanks={1}
-            totalCurrentBalance={1250.55}
+            totalCurrentBalance={234250.55}
           />
         </header>
         RECENT TRANSACTIONS
