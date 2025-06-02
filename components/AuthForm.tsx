@@ -19,9 +19,11 @@ export default function AuthForm({ type }: { type: string }) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const formSchema = authFormSchema(type);
+
   // 1. Define your form.
-  const form = useForm<z.infer<typeof authFormSchema>>({
-    resolver: zodResolver(authFormSchema),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -29,7 +31,7 @@ export default function AuthForm({ type }: { type: string }) {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof authFormSchema>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     setIsLoading(true);
@@ -72,6 +74,59 @@ export default function AuthForm({ type }: { type: string }) {
         <>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              {type === "sign-up" && (
+                <>
+                  <CustomInput
+                    control={form.control}
+                    name="firstName"
+                    label="First Name"
+                    placeholder="Enter your first name"
+                  />
+
+                  <CustomInput
+                    control={form.control}
+                    name="lastName"
+                    label="Last Name"
+                    placeholder="Enter your last name"
+                  />
+
+                  <CustomInput
+                    control={form.control}
+                    name="address1"
+                    label="Address"
+                    placeholder="Enter your specific address"
+                  />
+
+                  <CustomInput
+                    control={form.control}
+                    name="region"
+                    label="Region"
+                    placeholder="Example: Ashanti"
+                  />
+
+                  <CustomInput
+                    control={form.control}
+                    name="postalCode"
+                    label="Postal Code"
+                    placeholder="Exampple: 03220"
+                  />
+
+                  <CustomInput
+                    control={form.control}
+                    name="dateOfBirth"
+                    label="Date of Birth"
+                    placeholder="YYYY-MM-DD"
+                  />
+
+                  <CustomInput
+                    control={form.control}
+                    name="nationalID"
+                    label="National ID"
+                    placeholder="Example: GHA-111111111-1"
+                  />
+                </>
+              )}
+
               <CustomInput
                 control={form.control}
                 name="email"
@@ -85,27 +140,6 @@ export default function AuthForm({ type }: { type: string }) {
                 label="Password"
                 placeholder="Enter your password"
               />
-
-              {/* <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <div className="form-item">
-                  <FormLabel className="form-label">Password</FormLabel>
-                  <div className="flex w-ful flex-col">
-                    <FormControl>
-                      <Input
-                        placeholder="Enter your password"
-                        className="input-class"
-                        type="password"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className="form-message mt-2" />
-                  </div>
-                </div>
-              )}
-            /> */}
 
               <div className="flex flex-col gap-4">
                 <Button type="submit" disabled={isLoading} className="form-btn">
