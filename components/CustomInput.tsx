@@ -34,9 +34,16 @@ export default function CustomInput({
           <div className="flex w-ful flex-col">
             <FormControl>
               <Input
+                id={name}
                 placeholder={placeholder}
-                className="input-class"
-                type={name === "password" ? "password" : "text"}
+                className="input-class placeholder:text-gray-500"
+                type={
+                  name === "password"
+                    ? "password"
+                    : name === "dateOfBirth"
+                    ? "date"
+                    : "text"
+                }
                 {...field}
               />
             </FormControl>
