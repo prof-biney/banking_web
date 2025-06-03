@@ -38,11 +38,9 @@ export default function CustomInput({
                 placeholder={placeholder}
                 className="input-class placeholder:text-gray-500"
                 type={
-                  name === "password"
-                    ? "password"
-                    : name === "dateOfBirth"
-                    ? "date"
-                    : "text"
+                  (name === "password" && "password") ||
+                  (name === "dateOfBirth" && "date") ||
+                  "text"
                 }
                 {...field}
               />
