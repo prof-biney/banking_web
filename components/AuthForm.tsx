@@ -76,19 +76,21 @@ export default function AuthForm({ type }: { type: string }) {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               {type === "sign-up" && (
                 <>
-                  <CustomInput
-                    control={form.control}
-                    name="firstName"
-                    label="First Name"
-                    placeholder="Enter your first name"
-                  />
+                  <div className="flex gap-4">
+                    <CustomInput
+                      control={form.control}
+                      name="firstName"
+                      label="First Name"
+                      placeholder="Enter your first name"
+                    />
 
-                  <CustomInput
-                    control={form.control}
-                    name="lastName"
-                    label="Last Name"
-                    placeholder="Enter your last name"
-                  />
+                    <CustomInput
+                      control={form.control}
+                      name="lastName"
+                      label="Last Name"
+                      placeholder="Enter your last name"
+                    />
+                  </div>
 
                   <CustomInput
                     control={form.control}
@@ -99,31 +101,41 @@ export default function AuthForm({ type }: { type: string }) {
 
                   <CustomInput
                     control={form.control}
-                    name="region"
-                    label="Region"
-                    placeholder="Example: Ashanti"
+                    name="city"
+                    label="City"
+                    placeholder="Enter your City"
                   />
 
-                  <CustomInput
-                    control={form.control}
-                    name="postalCode"
-                    label="Postal Code"
-                    placeholder="Exampple: 03220"
-                  />
+                  <div className="flex gap-4">
+                    <CustomInput
+                      control={form.control}
+                      name="region"
+                      label="Region"
+                      placeholder="Eg: Ashanti"
+                    />
 
-                  <CustomInput
-                    control={form.control}
-                    name="dateOfBirth"
-                    label="Date of Birth"
-                    placeholder="YYYY-MM-DD"
-                  />
+                    <CustomInput
+                      control={form.control}
+                      name="postalCode"
+                      label="Postal Code"
+                      placeholder="Eg: 01010"
+                    />
+                  </div>
 
-                  <CustomInput
-                    control={form.control}
-                    name="nationalID"
-                    label="National ID"
-                    placeholder="Example: GHA-111111111-1"
-                  />
+                  <div className="grid grid-cols-2 gap-4">
+                    <CustomInput
+                      control={form.control}
+                      name="dateOfBirth"
+                      label="Date of Birth"
+                      placeholder="YYYY-MM-DD"
+                    />
+                    <CustomInput
+                      control={form.control}
+                      name="nationalID"
+                      label="National ID"
+                      placeholder="GHA-111111111-1"
+                    />
+                  </div>
                 </>
               )}
 
