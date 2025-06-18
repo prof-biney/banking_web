@@ -124,7 +124,7 @@ const config = {
         creditCard: "8px 10px 16px 0px rgba(0, 0, 0, 0.05)",
       },
       fontFamily: {
-        inter: "var(--font-inter)",
+        // inter: "var(--font-inter)",
         "ibm-plex-serif": "var(--font-ibm-plex-serif)",
       },
       keyframes: {
