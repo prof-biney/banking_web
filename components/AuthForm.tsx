@@ -42,7 +42,20 @@ export default function AuthForm({ type }: { type: string }) {
       // Sign up with Appwrote & create link Plaid token
 
       if (type === "sign-up") {
-        const newUser = await signUp(data);
+        const userData = {
+          firstName: data.firstName!,
+          lastName: data.lastName!,
+          address1: data.address1!,
+          city: data.city!,
+          state: data.state!,
+          postalCode: data.postalCode!,
+          dateOfBirth: data.dateOfBirth!,
+          ssn: data.ssn!,
+          email: data.email,
+          password: data.password,
+        };
+
+        const newUser = await signUp(userData);
 
         setUser(newUser);
       }
@@ -133,8 +146,8 @@ export default function AuthForm({ type }: { type: string }) {
                 <div className="flex gap-4">
                   <CustomInput
                     control={form.control}
-                    name="region"
-                    label="Region"
+                    name="state"
+                    label="State"
                     placeholder="Eg: Ashanti"
                   />
 
@@ -155,8 +168,8 @@ export default function AuthForm({ type }: { type: string }) {
                   />
                   <CustomInput
                     control={form.control}
-                    name="nationalId"
-                    label="National ID"
+                    name="ssn"
+                    label="SSN"
                     placeholder="GHA-111111111-1"
                   />
                 </div>
