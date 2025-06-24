@@ -3,7 +3,7 @@
 import { ID } from "node-appwrite";
 import { createAdminClient, createSessionClient } from "../appwrite";
 import { cookies } from "next/headers";
-import { parseStringify } from "../utils";
+import { encryptId, parseStringify } from "../utils";
 import { stringify } from "querystring";
 import {
   CountryCode,
@@ -14,6 +14,12 @@ import {
 import { plaidClient } from "@/lib/plaid";
 import { revalidatePath } from "next/cache";
 import { addFundingSource } from "./dwolla.actions";
+
+const {
+  APPWRRITE_DATABASE_ID: DATABASE_ID,
+  APPWRRITE_USER_COLLECTION_ID: USER_COLLECTION_ID,
+  APPWRRITE_BANK_COLLECTION_ID: BANK_COLLECTION_ID,
+} = process.env;
 
 export const signIn = async ({ email, password }: signInProps) => {
   try {
@@ -117,7 +123,21 @@ export const createBankAccount = async ({
   try {
     const { database } = await createAdminClient();
 
-    const bankAccount = await database.createDocument();
+    const bankAccount = await database.createDocument(
+      DATABASE_ID!,
+      BANK_COLLECTION_ID!,
+      ID.unique(),
+      {
+        userId,
+        bankId,
+        accountId,
+        accessToken,
+        fundingSourceUrl,
+        sharableId,
+      }
+    );
+
+    return parseStringify(bankAccount);
   } catch (error) {
     console.log(error);
   }
@@ -172,7 +192,7 @@ export const exchangePublicToken = async ({
       accountId: accountData.account_id,
       accessToken,
       fundingSourceUrl,
-      shareableId: encryptId(accountData.account_id),
+      sharableId: encryptId(accountData.account_id),
     });
 
     // Revalidate the path to reflect the changes
