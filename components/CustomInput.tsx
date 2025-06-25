@@ -37,11 +37,7 @@ export default function CustomInput({
                 id={name}
                 placeholder={placeholder}
                 className="input-class placeholder:text-gray-500"
-                type={
-                  (name === "password" && "password") ||
-                  (name === "dateOfBirth" && "date") ||
-                  "text"
-                }
+                type={(name === "password" && "password") || "text"}
                 {...field}
               />
             </FormControl>
