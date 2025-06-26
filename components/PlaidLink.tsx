@@ -23,7 +23,7 @@ export default function PlaidLink({ user, variant }: PlaidLinkProps) {
     };
 
     getLinkToken();
-  }, []);
+  }, [user]);
 
   const onSuccess = useCallback<PlaidLinkOnSuccess>(
     async (public_token: string) => {
