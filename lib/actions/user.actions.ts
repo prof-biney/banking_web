@@ -145,9 +145,10 @@ export const createLinkToken = async (user: User) => {
         client_user_id: user.$id,
       },
       client_name: `${user.firstName} ${user.lastName}`,
-      products: ["auth"] as Products[],
+      products: ["auth", "identity", "transactions"] as Products[],
       language: "en",
       country_codes: ["US"] as CountryCode[],
+      // update: { reauthorization_enabled: true },
     };
 
     const response = await plaidClient.linkTokenCreate(tokenParams);
