@@ -307,3 +307,23 @@ export const getBankByAccountId = async ({
     console.log(error);
   }
 };
+
+export const categorizeTransactions = (
+  transactions: Transaction[]
+): Transaction[] => {
+  return transactions.map((transaction) => {
+    const name = transaction.name.toLowerCase();
+
+    if (name.includes("mcdonald") || name.includes("starbucks")) {
+      transaction.category = "Food and Drink";
+    } else if (name.includes("uber") || name.includes("united airlines")) {
+      transaction.category = "Travel";
+    } else if (name.includes("credit card") || name.includes("intrst pymnt")) {
+      transaction.category = "Payment";
+    } else {
+      transaction.category = "Transfer"; // default/fallback
+    }
+
+    return transaction;
+  });
+};

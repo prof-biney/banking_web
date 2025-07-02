@@ -2,7 +2,10 @@ import HeaderBox from "@/components/HeaderBox";
 import { Pagination } from "@/components/Pagination";
 import TransactionsTable from "@/components/TransactionsTable";
 import { getAccount, getAccounts } from "@/lib/actions/bank.actions";
-import { getLoggedInUser } from "@/lib/actions/user.actions";
+import {
+  categorizeTransactions,
+  getLoggedInUser,
+} from "@/lib/actions/user.actions";
 import { formatAmount } from "@/lib/utils";
 
 export default async function TransactionHistory({
@@ -18,6 +21,8 @@ export default async function TransactionHistory({
   const appwriteItemId = (id as string) || accounts?.data[0]?.appwriteItemId;
 
   const account = await getAccount({ appwriteItemId });
+
+  categorizeTransactions(account.transactions);
 
   const rowsPerPage = 10;
   const totalPages = Math.ceil(account?.transactions.length / rowsPerPage);

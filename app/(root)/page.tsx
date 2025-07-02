@@ -3,7 +3,10 @@ import RecentTransactions from "@/components/RecentTransactions";
 import RightSidebar from "@/components/RightSidebar";
 import TotalBalanceBox from "@/components/TotalBalanceBox";
 import { getAccount, getAccounts } from "@/lib/actions/bank.actions";
-import { getLoggedInUser } from "@/lib/actions/user.actions";
+import {
+  categorizeTransactions,
+  getLoggedInUser,
+} from "@/lib/actions/user.actions";
 
 export default async function Home({
   searchParams: { id, page },
@@ -19,7 +22,9 @@ export default async function Home({
 
   const account = await getAccount({ appwriteItemId });
 
-  console.log({ accountsData, appwriteItemId, account });
+  // console.log(account.transactions);
+  // console.log(categorizeTransactions(account.transactions));
+  categorizeTransactions(account.transactions);
 
   return (
     <section className="home">
