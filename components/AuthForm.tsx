@@ -58,7 +58,12 @@ export default function AuthForm({ type }: { type: string }) {
 
         const newUser = await signUp(userData);
 
-        setUser(newUser);
+        if (!newUser.success) {
+          setError(newUser.error);
+          return;
+        }
+
+        setUser(newUser.data);
       }
 
       if (type === "sign-in") {
@@ -154,7 +159,7 @@ export default function AuthForm({ type }: { type: string }) {
                       control={form.control}
                       name="state"
                       label="State"
-                      placeholder="Eg: Ashanti"
+                      placeholder="Eg: NY"
                     />
 
                     <CustomInput
@@ -176,7 +181,7 @@ export default function AuthForm({ type }: { type: string }) {
                       control={form.control}
                       name="ssn"
                       label="SSN"
-                      placeholder="GHA-111111111-1"
+                      placeholder="1234"
                     />
                   </div>
                 </>

@@ -112,9 +112,17 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
       secure: true,
     });
 
-    return parseStringify(newUser);
-  } catch (error) {
+    return {
+      success: true,
+      data: parseStringify(newUser),
+    };
+  } catch (error: any) {
     console.error("Error: ", error);
+
+    return {
+      success: false,
+      error: error?.message || "Something went wrong during sign-up",
+    };
   }
 };
 
