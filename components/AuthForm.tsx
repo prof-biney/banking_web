@@ -22,6 +22,7 @@ export default function AuthForm({ type }: { type: string }) {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const formSchema = authFormSchema(type);
 
@@ -65,7 +66,12 @@ export default function AuthForm({ type }: { type: string }) {
           email: data.email,
           password: data.password,
         });
-        if (response) router.push("/");
+        if (response.success) router.push("/");
+
+        if (!response.success) {
+          console.log(response.error);
+          setError(response.error);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -190,7 +196,7 @@ export default function AuthForm({ type }: { type: string }) {
                 placeholder="Enter your password"
               />
 
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col">
                 <Button type="submit" disabled={isLoading} className="form-btn">
                   {isLoading ? (
                     <>
@@ -203,6 +209,13 @@ export default function AuthForm({ type }: { type: string }) {
                     "Sign Up"
                   )}
                 </Button>
+                {error && (
+                  <p className="text-[0.8rem] font-medium text-destructive form-message mt-2">
+                    {error === "fetch failed"
+                      ? "No internet connection"
+                      : error}
+                  </p>
+                )}
               </div>
             </form>
           </Form>
