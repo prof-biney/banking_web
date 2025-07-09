@@ -73,15 +73,6 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
   try {
     const { account, database } = await createAdminClient();
 
-    newUserAccount = await account.create(
-      ID.unique(),
-      email,
-      password,
-      `${firstName} ${lastName}`
-    );
-
-    if (!newUserAccount) throw new Error("Error creating user.");
-
     const dwollaCustomerUrl = await createDwollaCustomer({
       ...userData,
       type: "personal",
@@ -90,6 +81,15 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
     if (!dwollaCustomerUrl) throw new Error("Error creating Dwolla customer.");
 
     const dwollaCustomerId = extractCustomerIdFromUrl(dwollaCustomerUrl);
+
+    newUserAccount = await account.create(
+      ID.unique(),
+      email,
+      password,
+      `${firstName} ${lastName}`
+    );
+
+    if (!newUserAccount) throw new Error("Error creating user.");
 
     const newUser = await database.createDocument(
       DATABASE_ID!,
@@ -119,9 +119,22 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
   } catch (error: any) {
     console.error("Error: ", error);
 
+    if (error?.body?._embedded?.errors?.length) {
+      const errorsArray = error.body._embedded.errors;
+      const errorMessage = errorsArray
+        .map((err: any) => err.message)
+        .join(", ");
+
+      return {
+        success: false,
+        error: errorMessage || "Some went wrong during sign-up",
+      };
+    }
+
+    // Fallback error message if specific errors are not available
     return {
       success: false,
-      error: error?.message || "Something went wrong during sign-up",
+      error: error.message || "Something went wrong during sign-up",
     };
   }
 };
